@@ -29,7 +29,7 @@ export class ProductListComponent implements OnInit {
 
     if(hasCategoryId){
       // get the "id" param string and convert it into a number
-      this.currentCategoryId =  Number(this.route.snapshot.paramMap.get('id'));
+      this.currentCategoryId = Number(this.route.snapshot.paramMap.get('id'));
     }
     else {
       // not category id available ... default to category id 1

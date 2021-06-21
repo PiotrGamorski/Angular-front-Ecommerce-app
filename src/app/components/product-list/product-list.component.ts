@@ -37,10 +37,9 @@ export class ProductListComponent implements OnInit {
     }
 
     // now, get the products for this given category id
-    // .getProductList is async method, hence subscribe waits until all info is read.
     this.productService.getProductList(this.currentCategoryId).subscribe(
       data => {this.products = data;}
     )
-  }
+  };
 
 }

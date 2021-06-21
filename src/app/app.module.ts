@@ -7,13 +7,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProductService } from './services/product.service';
 import { Routes, RouterModule } from '@angular/router';
 import { ProductCategoryMenuComponent } from './components/product-category-menu/product-category-menu.component';
+import { SearchComponent } from './components/search/search.component';
 
 const routes: Routes = [
-  // when path is hit (it matches), then a new instance of ProductListComponent.
+  // when path is hit (it matches), then a new instance of ProductListComponent is created.
   // "/:id" notation stands for URL parametrization, in here, by id.
   {path: 'category/:id', component: ProductListComponent},
   {path: 'category', component: ProductListComponent},
   {path: 'products', component: ProductListComponent},
+  {path: 'search/:keyword', component: ProductListComponent},
   // whenever we use redirectTo, we need to include pathMatch
   {path: '', redirectTo: '/products', pathMatch: 'full'},
   {path: '**', redirectTo: '/products', pathMatch: 'full'},
@@ -23,7 +25,8 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     ProductListComponent,
-    ProductCategoryMenuComponent
+    ProductCategoryMenuComponent,
+    SearchComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

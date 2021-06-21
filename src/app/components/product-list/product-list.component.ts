@@ -40,7 +40,7 @@ export class ProductListComponent implements OnInit {
 
     // now, search for the products using keyword
     this.productService.searchProducts(theKeyword).subscribe(
-      data => {this.products = data}
+      data => {this.products = data;}
     );
   };
 

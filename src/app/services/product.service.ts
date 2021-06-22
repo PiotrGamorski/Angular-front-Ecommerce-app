@@ -23,11 +23,20 @@ export class ProductService {
   };
 
   private getProducts(searchUrl: string, getter: string): Observable<Product[]> {
+
     return this.httpClient.get<GetResponseProducts>(searchUrl).pipe(
       map(response => response._embedded.products),
       catchError(this.handleError<Product[]>(getter, []))
     );
   };
+
+  // check in Postman 'http://localhost:8080/api/products/1" to see the JSON. No need to format the reponse!
+  getProduct(theProductId: number): Observable<Product>{
+
+    const productUrl: string = `${this.baseUrl}/${theProductId}`;
+
+    return this.httpClient.get<Product>(productUrl);
+  }
 
   getProductList(theCategoryId: number): Observable<Product[]> {
 

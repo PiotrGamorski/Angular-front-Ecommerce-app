@@ -16,14 +16,16 @@ export class ProductDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
-      () => {this.far();}
+      () => {this.handleProductDetails();}
     );
   };
 
 
-  private far(): void {
+  private handleProductDetails(): void {
 
+    // get the "id" param from URL and convert it into a number
     const theProductId: number = Number(this.route.snapshot.paramMap.get('id'));
+    
     this.productService.getProduct(theProductId).subscribe(
       data => {this.product = data;}
     );

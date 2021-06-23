@@ -14,6 +14,7 @@ export class ProductListComponent implements OnInit {
   currentCategoryId: number = 1;
   previousCategoryId: number = 1;
   searchMode: boolean = false;
+  productsLoaded: boolean = false;
 
   // new properties for pagination
   thePageNumber: number = 1;
@@ -33,7 +34,7 @@ export class ProductListComponent implements OnInit {
     // this.listProducts();
   }
 
-  private listProducts(): void {
+  listProducts(): void {
     this.searchMode = this.route.snapshot.paramMap.has('keyword');
 
     if (this.searchMode) {
@@ -85,7 +86,11 @@ export class ProductListComponent implements OnInit {
         this.thePageSize,
         this.currentCategoryId
       )
-      .subscribe((data) => this.processResult());
+      .subscribe(
+        this.processResult(),
+        (err) => console.error('Observer got an error: ' + err),
+        () => (this.productsLoaded = true)
+      );
   }
 
   private processResult() {

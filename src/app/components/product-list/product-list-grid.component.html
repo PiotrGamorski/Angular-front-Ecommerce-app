@@ -26,7 +26,7 @@
 
             </div>
 
-            <!-- begin footer -->
+            <!-- begin pagination footer -->
             <div class="footer-pagination">
                 <div class="row">
                     <div class="col-md-6">
@@ -39,7 +39,6 @@
                                                     [pageSize]="thePageSize"
                                                     [collectionSize]="theTotalElements"
                                                     (pageChange)="listProducts()">
-
                                     </ngb-pagination>
 
                                 </div>
@@ -47,9 +46,23 @@
                         </div>
 
                     </div>
+
+                    <!-- begin pageSize dropdown list -->
+                    <div class="col-md-3 mt-2" style="text-align: right;">
+                         <span class="mr-2">Page Size</span>
+
+                         <select name="pageSizes" id="selectPageSize" (change)="updatePageSize($any($event.target).value)">
+                             <option selected="true" value="5">5</option>
+                             <option value="10">10</option>
+                             <option value="20">20</option>
+                             <option value="50">50</option>
+                         </select>
+                    </div>
+                    <!-- end pageSize dropdown list -->
+
                 </div>
             </div>
-            <!-- end footer -->
+            <!-- end pagination footer -->
 
         </div>
     </div>

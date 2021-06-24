@@ -18,7 +18,7 @@ export class ProductListComponent implements OnInit {
 
   // new properties for pagination
   thePageNumber: number = 1;
-  thePageSize: number = 10;
+  thePageSize: number = 5;
   theTotalElements: number = 0;
 
   constructor(
@@ -50,9 +50,13 @@ export class ProductListComponent implements OnInit {
       ?.toString();
 
     // now, search for the products using keyword
-    this.productService.searchProducts(theKeyword).subscribe((data) => {
-      this.products = data;
-    });
+    this.productService.searchProducts(theKeyword).subscribe(
+      (data) => {
+        this.products = data;
+      },
+      (err) => console.error('Observer got an error: ' + err),
+      () => (this.productsLoaded = true)
+    );
   }
 
   private handleListProducts(): void {
@@ -75,9 +79,6 @@ export class ProductListComponent implements OnInit {
     }
 
     this.previousCategoryId = this.currentCategoryId;
-    console.log(
-      `currentCategoryId=${this.currentCategoryId}, thePageNumber=${this.thePageNumber}`
-    );
 
     // now, get the products for this given category id
     this.productService
@@ -100,5 +101,11 @@ export class ProductListComponent implements OnInit {
       this.thePageSize = data.page.size;
       this.theTotalElements = data.page.totalElements;
     };
+  }
+
+  updatePageSize(pageSizeSelected: number) {
+    this.thePageSize = pageSizeSelected;
+    this.thePageNumber = 1;
+    this.listProducts();
   }
 }

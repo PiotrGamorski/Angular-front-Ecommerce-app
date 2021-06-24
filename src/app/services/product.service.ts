@@ -57,10 +57,14 @@ export class ProductService {
     return this.getProducts(searchUrl, 'getProducts');
   }
 
-  searchProducts(theKeyword: string | undefined): Observable<Product[]> {
-    const searchUrl: string = `${this.baseUrl}/search/findByNameContaining?name=${theKeyword}`;
+  searchProductsPaginate(
+    thePage: number,
+    thePageSize: number,
+    theKeyword: string | undefined
+  ): Observable<GetResponseProducts> {
+    const searchUrl: string = `${this.baseUrl}/search/findByNameContaining?name=${theKeyword}&page=${thePage}&size=${thePageSize}`;
 
-    return this.getProducts(searchUrl, 'getProducts');
+    return this.httpClient.get<GetResponseProducts>(searchUrl);
   }
 
   getProductCategories(): Observable<ProductCategory[]> {

@@ -50,13 +50,17 @@ export class ProductListComponent implements OnInit {
       ?.toString();
 
     // now, search for the products using keyword
-    this.productService.searchProducts(theKeyword).subscribe(
-      (data) => {
-        this.products = data;
-      },
-      (err) => console.error('Observer got an error: ' + err),
-      () => (this.productsLoaded = true)
-    );
+    this.productService
+      .searchProductsPaginate(
+        this.thePageNumber - 1,
+        this.thePageSize,
+        theKeyword
+      )
+      .subscribe(
+        this.processResult(),
+        (err) => console.error('Observer got an error: ' + err),
+        () => (this.productsLoaded = true)
+      );
   }
 
   private handleListProducts(): void {

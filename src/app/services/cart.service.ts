@@ -40,7 +40,7 @@ export class CartService {
     this.computeCartTotals();
   }
 
-  private computeCartTotals(): void {
+  computeCartTotals(): void {
     let totalPriceValue: number = 0;
     let totalQuantityValue: number = 0;
 

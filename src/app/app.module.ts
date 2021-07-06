@@ -11,18 +11,20 @@ import { SearchComponent } from './components/search/search.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CartStatusComponent } from './components/cart-status/cart-status.component';
+import { CartDetailsComponent } from './components/cart-details/cart-details.component';
 
 const routes: Routes = [
   // when path is hit (it matches), then a new instance of ProductListComponent is created.
   // "/:id" notation stands for URL parametrization, in here, by id.
-  {path: 'category/:id', component: ProductListComponent},
-  {path: 'category', component: ProductListComponent},
-  {path: 'products', component: ProductListComponent},
-  {path: 'search/:keyword', component: ProductListComponent},
-  {path: 'products/:id', component: ProductDetailsComponent},
+  { path: 'category/:id', component: ProductListComponent },
+  { path: 'category', component: ProductListComponent },
+  { path: 'products', component: ProductListComponent },
+  { path: 'search/:keyword', component: ProductListComponent },
+  { path: 'products/:id', component: ProductDetailsComponent },
+  { path: 'cart-details', component: CartDetailsComponent },
   // whenever we use redirectTo, we need to include pathMatch
-  {path: '', redirectTo: '/products', pathMatch: 'full'},
-  {path: '**', redirectTo: '/products', pathMatch: 'full'},
+  { path: '', redirectTo: '/products', pathMatch: 'full' },
+  { path: '**', redirectTo: '/products', pathMatch: 'full' },
 ];
 
 @NgModule({
@@ -32,7 +34,8 @@ const routes: Routes = [
     ProductCategoryMenuComponent,
     SearchComponent,
     ProductDetailsComponent,
-    CartStatusComponent
+    CartStatusComponent,
+    CartDetailsComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -41,6 +44,6 @@ const routes: Routes = [
     NgbModule,
   ],
   providers: [ProductService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

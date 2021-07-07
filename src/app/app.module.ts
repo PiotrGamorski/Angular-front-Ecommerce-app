@@ -12,6 +12,7 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CartStatusComponent } from './components/cart-status/cart-status.component';
 import { CartDetailsComponent } from './components/cart-details/cart-details.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 
 const routes: Routes = [
   // when path is hit (it matches), then a new instance of ProductListComponent is created.
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'search/:keyword', component: ProductListComponent },
   { path: 'products/:id', component: ProductDetailsComponent },
   { path: 'cart-details', component: CartDetailsComponent },
+  { path: 'checkout', component: CheckoutComponent },
   // whenever we use redirectTo, we need to include pathMatch
   { path: '', redirectTo: '/products', pathMatch: 'full' },
   { path: '**', redirectTo: '/products', pathMatch: 'full' },
@@ -36,6 +38,7 @@ const routes: Routes = [
     ProductDetailsComponent,
     CartStatusComponent,
     CartDetailsComponent,
+    CheckoutComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),

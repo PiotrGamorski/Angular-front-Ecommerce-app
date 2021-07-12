@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { CartItem } from 'src/app/common/cart-item';
 import { CartService } from 'src/app/services/cart.service';
+import { Luv2ShopFormService } from 'src/app/services/luv2-shop-form.service';
 
 @Component({
   selector: 'app-checkout',
@@ -14,13 +14,19 @@ export class CheckoutComponent implements OnInit {
   totalPrice: number = 0;
   totalQuantity: number = 0;
 
+  creditCardYears: number[] = [];
+  creditCardMonths: number[] = [];
+
   constructor(
     private formBuilder: FormBuilder,
-    private cartService: CartService
+    private cartService: CartService,
+    private luv2ShopFormService: Luv2ShopFormService
   ) {}
 
   ngOnInit(): void {
     this.listCheckoutDetails();
+    this.populateCreditCardMonths();
+    this.populateCreditCardYears();
 
     const customer: FormGroup = this.formBuilder.group({
       firstName: [''],
@@ -76,6 +82,25 @@ export class CheckoutComponent implements OnInit {
     );
 
     this.cartService.computeCartTotals();
+  }
+
+  private populateCreditCardMonths(): void {
+    const startMonth: number = new Date().getMonth() + 1;
+    console.log('startMonth: ' + startMonth);
+
+    this.luv2ShopFormService
+      .getCreditCardMonths(startMonth)
+      .subscribe((data) => {
+        console.log('Retrived credit card months: ' + JSON.stringify(data));
+        this.creditCardMonths = data;
+      });
+  }
+
+  private populateCreditCardYears(): void {
+    this.luv2ShopFormService.getCreditCardYears().subscribe((data) => {
+      console.log('Retrived credit card years: ' + JSON.stringify(data));
+      this.creditCardYears = data;
+    });
   }
 
   // PUBLIC METHODS

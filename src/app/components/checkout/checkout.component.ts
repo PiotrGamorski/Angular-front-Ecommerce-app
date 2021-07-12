@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { CartItem } from 'src/app/common/cart-item';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-checkout',
@@ -9,9 +11,17 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class CheckoutComponent implements OnInit {
   checkoutFormGroup: FormGroup = new FormGroup({});
 
-  constructor(private formBuilder: FormBuilder) {}
+  totalPrice: number = 0;
+  totalQuantity: number = 0;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private cartService: CartService
+  ) {}
 
   ngOnInit(): void {
+    this.listCheckoutDetails();
+
     const customer: FormGroup = this.formBuilder.group({
       firstName: [''],
       lastName: [''],
@@ -56,6 +66,19 @@ export class CheckoutComponent implements OnInit {
       .get('customer')
       ?.valueChanges.subscribe((data) => console.log(data));
   }
+
+  // PRIVATE METHODS
+  private listCheckoutDetails(): void {
+    this.cartService.totalPrice.subscribe((data) => (this.totalPrice = data));
+
+    this.cartService.totalQuantity.subscribe(
+      (data) => (this.totalQuantity = data)
+    );
+
+    this.cartService.computeCartTotals();
+  }
+
+  // PUBLIC METHODS
 
   onSubmit() {
     console.log('Handling the submit button');

@@ -19,10 +19,12 @@ export class CheckoutComponent implements OnInit {
   creditCardYears: number[] = [];
   creditCardMonths: number[] = [];
 
+  selectAllStates: boolean = true;
+
   countries: Country[] = [];
   states: State[] = [];
-  shippingAdressStates: State[] = [];
-  billingAdressStates: State[] = [];
+  shippingAddressStates: State[] = [];
+  billingAddressStates: State[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,6 +37,7 @@ export class CheckoutComponent implements OnInit {
     this.populateCreditCardMonths();
     this.populateCreditCardYears();
     this.hanadleListCountries();
+    this.handleListOfAllStates();
 
     const customer: FormGroup = this.formBuilder.group({
       firstName: [''],
@@ -118,10 +121,11 @@ export class CheckoutComponent implements OnInit {
       .subscribe((data) => (this.countries = data));
   }
 
-  private handleListStates(theCountryCode: string): void {
-    this.luv2ShopFormService
-      .getStates(theCountryCode)
-      .subscribe((data) => (this.states = data));
+  private handleListOfAllStates(): void {
+    this.luv2ShopFormService.getAllStates().subscribe((data) => {
+      // console.log(JSON.stringify(data));
+      this.states = data;
+    });
   }
 
   // --------------- PUBLIC METHODS ---------------
@@ -136,6 +140,7 @@ export class CheckoutComponent implements OnInit {
 
     if ((theEvent.target as HTMLInputElement).checked) {
       controls.billingAddress.setValue(controls.shippingAddress.value);
+      this.billingAddressStates = this.shippingAddressStates;
     } else {
       controls.billingAddress.reset();
     }
@@ -166,20 +171,24 @@ export class CheckoutComponent implements OnInit {
       });
   }
 
-  getStates(formGroupName: string): void {
+  getStatesWhenCountrySelected(formGroupName: string): void {
     const formGroup = this.checkoutFormGroup.get(formGroupName);
     const countryCode = formGroup?.value.country.code;
 
-    this.luv2ShopFormService.getStates(countryCode).subscribe((data) => {
-      if (formGroupName === 'shippingAddress') {
-        this.shippingAdressStates = data;
-      } else {
-        this.billingAdressStates = data;
-      }
+    this.luv2ShopFormService
+      .getStatesByCountryCode(countryCode)
+      .subscribe((data) => {
+        if (formGroupName === 'shippingAddress') {
+          this.shippingAddressStates = data;
+        } else {
+          this.billingAddressStates = data;
+        }
 
-      // select first item by default
-      formGroup?.get('state')?.setValue(data[0]);
-    });
+        // select first item by default
+        formGroup?.get('state')?.setValue(data[0]);
+        this.selectAllStates = false;
+        console.log(this.selectAllStates);
+      });
   }
 
   // END OF CLASS

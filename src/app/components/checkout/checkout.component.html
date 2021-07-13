@@ -44,7 +44,7 @@
             <div class="col-md-2"><label>Country</label></div>
             <div class="col-md-9">
               <div class="input-space">
-                <select formControlName="country" (change)="getStates('shippingAddress')">
+                <select formControlName="country" (change)="getStatesWhenCountrySelected('shippingAddress')">
                   <option *ngFor="let tempCountry of countries" [ngValue]="tempCountry">{{tempCountry.name}}</option>
                 </select>
               </div>
@@ -73,8 +73,11 @@
             <div class="col-md-2"><label>State</label></div>
             <div class="col-md-9">
               <div class="input-space">
-                <select formControlName="state">
-                  <option *ngFor="let tempState of shippingAdressStates">{{tempState.name}}</option>
+                <select *ngIf="selectAllStates" formControlName="state">
+                  <option *ngFor="let tempState of states" [ngValue]="tempState">{{tempState.name}}</option>
+                </select>
+                <select *ngIf="!selectAllStates" formControlName="state">
+                  <option *ngFor="let tempState of shippingAddressStates" [ngValue]="tempState">{{tempState.name}}</option>
                 </select>
               </div>
             </div>
@@ -112,7 +115,7 @@
             <div class="col-md-2"><label>Country</label></div>
             <div class="col-md-9">
               <div class="input-space">
-                <select formControlName="country" (change)="getStates('billingAddress')">
+                <select formControlName="country" (change)="getStatesWhenCountrySelected('billingAddress')">
                   <option *ngFor="let tempCountry of countries" [ngValue]="tempCountry">{{tempCountry.name}}</option>
                 </select>
               </div>
@@ -141,9 +144,12 @@
             <div class="col-md-2"><label>State</label></div>
             <div class="col-md-9">
               <div class="input-space">
-                <select formControlName="state">
-                  <option *ngFor="let tempState of billingAdressStates">{{tempState.name}}</option>
+                <select *ngIf="selectAllStates" formControlName="state">
+                  <option *ngFor="let tempState of states" [ngValue]="tempState">{{tempState.name}}</option>
                 </select>
+                <select *ngIf="!selectAllStates" formControlName="state">
+                  <option *ngFor="let tempState of billingAddressStates" [ngValue]="tempState">{{tempState.name}}</option>
+                </select>    
               </div>
             </div>
           </div>

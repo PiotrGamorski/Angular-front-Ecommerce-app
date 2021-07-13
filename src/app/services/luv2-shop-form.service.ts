@@ -50,9 +50,11 @@ export class Luv2ShopFormService {
       .pipe(map((response) => response._embedded.countries));
   }
 
-  getStates(): Observable<State[]> {
+  getStates(theCountryCode: string): Observable<State[]> {
+    const searchStatesUrl: string = `${this.statesUrl}/search/findByCountryCode?code=${theCountryCode}`;
+
     return this.httpClient
-      .get<GetResponseState>(this.statesUrl)
+      .get<GetResponseState>(searchStatesUrl)
       .pipe(map((reposne) => reposne._embedded.states));
   }
 

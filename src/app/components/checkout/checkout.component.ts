@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Country } from 'src/app/common/country';
+import { State } from 'src/app/common/state';
 import { CartService } from 'src/app/services/cart.service';
 import { Luv2ShopFormService } from 'src/app/services/luv2-shop-form.service';
 
@@ -19,8 +20,7 @@ export class CheckoutComponent implements OnInit {
   creditCardMonths: number[] = [];
 
   countries: Country[] = [];
-
-  private baseUrl: string = 'http://localhost:8080/api/';
+  states: State[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,6 +33,7 @@ export class CheckoutComponent implements OnInit {
     this.populateCreditCardMonths();
     this.populateCreditCardYears();
     this.hanadleListCountries();
+    this.handleListStates();
 
     const customer: FormGroup = this.formBuilder.group({
       firstName: [''],
@@ -111,11 +112,15 @@ export class CheckoutComponent implements OnInit {
   }
 
   private hanadleListCountries(): void {
-    const theUrl: string = this.baseUrl + 'countries';
-
     this.luv2ShopFormService
-      .getCountries(theUrl)
+      .getCountries()
       .subscribe((data) => (this.countries = data));
+  }
+
+  private handleListStates(): void {
+    this.luv2ShopFormService
+      .getStates()
+      .subscribe((data) => (this.states = data));
   }
 
   // --------------- PUBLIC METHODS ---------------

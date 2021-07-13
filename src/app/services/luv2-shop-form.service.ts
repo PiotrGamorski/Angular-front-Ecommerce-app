@@ -3,11 +3,15 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Country } from '../common/country';
+import { State } from '../common/state';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Luv2ShopFormService {
+  private countriesUrl = 'http://localhost:8080/api/countries';
+  private statesUrl = 'http://localhost:8080/api/states';
+
   constructor(private httpClient: HttpClient) {}
 
   getCreditCardMonths(startMonth: number): Observable<number[]> {
@@ -40,10 +44,16 @@ export class Luv2ShopFormService {
   }
 
   // GET DATA FROM DATABASE
-  getCountries(searchUrl: string): Observable<Country[]> {
+  getCountries(): Observable<Country[]> {
     return this.httpClient
-      .get<GetResponseCountry>(searchUrl)
+      .get<GetResponseCountry>(this.countriesUrl)
       .pipe(map((response) => response._embedded.countries));
+  }
+
+  getStates(): Observable<State[]> {
+    return this.httpClient
+      .get<GetResponseState>(this.statesUrl)
+      .pipe(map((reposne) => reposne._embedded.states));
   }
 
   // END OF CLASS
@@ -52,5 +62,11 @@ export class Luv2ShopFormService {
 export interface GetResponseCountry {
   _embedded: {
     countries: Country[];
+  };
+}
+
+export interface GetResponseState {
+  _embedded: {
+    states: State[];
   };
 }

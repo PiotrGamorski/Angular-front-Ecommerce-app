@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Country } from 'src/app/common/country';
 import { CartService } from 'src/app/services/cart.service';
 import { Luv2ShopFormService } from 'src/app/services/luv2-shop-form.service';
 
@@ -17,6 +18,10 @@ export class CheckoutComponent implements OnInit {
   creditCardYears: number[] = [];
   creditCardMonths: number[] = [];
 
+  countries: Country[] = [];
+
+  private baseUrl: string = 'http://localhost:8080/api/';
+
   constructor(
     private formBuilder: FormBuilder,
     private cartService: CartService,
@@ -27,6 +32,7 @@ export class CheckoutComponent implements OnInit {
     this.listCheckoutDetails();
     this.populateCreditCardMonths();
     this.populateCreditCardYears();
+    this.hanadleListCountries();
 
     const customer: FormGroup = this.formBuilder.group({
       firstName: [''],
@@ -73,7 +79,8 @@ export class CheckoutComponent implements OnInit {
       ?.valueChanges.subscribe((data) => console.log(data));
   }
 
-  // PRIVATE METHODS
+  // --------------- PRIVATE METHODS ---------------
+
   private listCheckoutDetails(): void {
     this.cartService.totalPrice.subscribe((data) => (this.totalPrice = data));
 
@@ -103,7 +110,15 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
-  // PUBLIC METHODS
+  private hanadleListCountries(): void {
+    const theUrl: string = this.baseUrl + 'countries';
+
+    this.luv2ShopFormService
+      .getCountries(theUrl)
+      .subscribe((data) => (this.countries = data));
+  }
+
+  // --------------- PUBLIC METHODS ---------------
 
   onSubmit() {
     console.log('Handling the submit button');

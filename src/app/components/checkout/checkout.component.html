@@ -6,6 +6,8 @@
         <div formGroupName="customer" class="form-area">
           <h3>Customer</h3>
 
+
+          <!-- First Name -->
           <div class="row">
             <div class="col-md-2"><label>First Name</label></div>
             <div class="col-md-9">
@@ -14,6 +16,10 @@
 
                 <!-- First Name Validation -->
                 <div *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)" class="alert alert-danger">
+
+                  <div *ngIf="firstName?.errors?.notOnlyWhitespace">
+                    Please, enter valid data
+                  </div>
 
                   <div *ngIf="firstName?.errors?.required">
                     First Name is required
@@ -24,11 +30,14 @@
                   </div>
 
                 </div>
+                <!-- End of First Name Validation -->
 
               </div>
             </div>
           </div>
+          <!-- End of First Name -->
 
+          <!-- Last Name -->
           <div class="row">
             <div class="col-md-2"><label>Last Name</label></div>
             <div class="col-md-9">
@@ -37,6 +46,10 @@
 
                 <!-- Last Name Validation -->
                 <div *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)" class="alert alert-danger">
+
+                  <div *ngIf="lastName?.errors?.notOnlyWhitespace">
+                    Please, enter valid data
+                  </div>
 
                   <div *ngIf="lastName?.errors?.required">
                     Last Name is required
@@ -47,17 +60,21 @@
                   </div>
 
                 </div>
+                <!-- End of Last Name Validation -->
 
               </div>
             </div>
           </div>
+          <!-- End of Last Name -->
 
+          <!-- Email -->
           <div class="row">
             <div class="col-md-2"><label>Email</label></div>
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="email" type="text" />
 
+                <!-- Email Validation -->
                 <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="alert alert-danger">
 
                   <div *ngIf="email?.errors?.required">
@@ -73,6 +90,7 @@
               </div>
             </div>
           </div>
+          <!-- End of Email -->
 
           <!-- end of customer form -->
         </div>
@@ -81,6 +99,7 @@
         <div formGroupName="shippingAddress" class="form-area">
           <h3>Shipping Address</h3>
 
+          <!-- Country -->
           <div class="row">
             <div class="col-md-2"><label>Country</label></div>
             <div class="col-md-9">
@@ -91,6 +110,7 @@
               </div>
             </div>
           </div>
+          <!-- End of Country -->
 
           <div class="row">
             <div class="col-md-2"><label>Street</label></div>
@@ -101,6 +121,7 @@
             </div>
           </div>
 
+          <!-- City -->
           <div class="row">
             <div class="col-md-2"><label>City</label></div>
             <div class="col-md-9">
@@ -109,7 +130,9 @@
               </div>
             </div>
           </div>
+          <!-- End of City -->
 
+          <!-- State -->
           <div class="row">
             <div class="col-md-2"><label>State</label></div>
             <div class="col-md-9">
@@ -123,7 +146,9 @@
               </div>
             </div>
           </div>
+          <!-- End of State -->
 
+          <!-- Zip Code -->
           <div class="row">
             <div class="col-md-2"><label>Zip Code</label></div>
             <div class="col-md-9">
@@ -132,6 +157,7 @@
               </div>
             </div>
           </div>
+          <!-- End of Zip Code -->
 
           <!-- end of the Shipping Address form -->
         </div>
@@ -152,6 +178,7 @@
         <div formGroupName="billingAddress" class="form-area">
           <h3>Billing Address</h3>
 
+          <!-- Country -->
           <div class="row">
             <div class="col-md-2"><label>Country</label></div>
             <div class="col-md-9">
@@ -162,7 +189,9 @@
               </div>
             </div>
           </div>
+          <!-- End of Country -->
 
+          <!-- Street -->
           <div class="row">
             <div class="col-md-2"><label>Street</label></div>
             <div class="col-md-9">
@@ -171,7 +200,9 @@
               </div>
             </div>
           </div>
+          <!-- End of Street -->
 
+          <!-- City -->
           <div class="row">
             <div class="col-md-2"><label>City</label></div>
             <div class="col-md-9">
@@ -180,7 +211,9 @@
               </div>
             </div>
           </div>
+          <!-- End of City -->
 
+          <!-- State -->
           <div class="row">
             <div class="col-md-2"><label>State</label></div>
             <div class="col-md-9">
@@ -194,7 +227,9 @@
               </div>
             </div>
           </div>
+          <!-- End of State -->
 
+          <!-- Zip Code -->
           <div class="row">
             <div class="col-md-2"><label>Zip Code</label></div>
             <div class="col-md-9">
@@ -203,6 +238,7 @@
               </div>
             </div>
           </div>
+          <!-- End of Zip Code -->
 
           <!-- end of the Billing Address form -->
         </div>
@@ -211,6 +247,7 @@
         <div formGroupName="creditCard" class="form-area">
           <h3>Credit Card</h3>
 
+          <!-- Card Type -->
           <div class="row">
             <div class="col-md-2"><label>Card Type</label></div>
             <div class="col-md-9">
@@ -222,7 +259,9 @@
               </div>
             </div>
           </div>
+          <!-- End of Card Type -->
 
+          <!-- Name in Card -->
           <div class="row">
             <div class="col-md-2"><label>Name in Card</label></div>
             <div class="col-md-9">
@@ -231,7 +270,9 @@
               </div>
             </div>
           </div>
+          <!-- End of Name in Card -->
 
+          <!-- Card Number -->
           <div class="row">
             <div class="col-md-2"><label>Card Number</label></div>
             <div class="col-md-9">
@@ -240,7 +281,9 @@
               </div>
             </div>
           </div>
+          <!-- End of Card Number -->
 
+          <!-- Security Code -->
           <div class="row">
             <div class="col-md-2"><label>Security Code</label></div>
             <div class="col-md-9">
@@ -249,7 +292,9 @@
               </div>
             </div>
           </div>
+          <!-- End of Security Code -->
 
+          <!-- Expiration Month -->
           <div class="row">
             <div class="col-md-2"><label>Expiration Month</label></div>
             <div class="col-md-9">
@@ -260,7 +305,9 @@
               </div>
             </div>
           </div>
+          <!-- End of Expiration Month -->
 
+          <!-- Expiration Year -->
           <div class="row">
             <div class="col-md-2"><label>Expiration Year</label></div>
             <div class="col-md-9">
@@ -271,6 +318,8 @@
               </div>
             </div>
           </div>
+          <!-- End of Expiration Year -->
+
           <!-- end if Credit Card form -->
         </div>
 

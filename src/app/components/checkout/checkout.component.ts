@@ -36,7 +36,7 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.generateCheckoutFormGroup();
-    this.listCheckoutDetails();
+    this.populateCheckoutDetails();
     this.populateCreditCardMonths();
     this.populateCreditCardYears();
     this.hanadleListCountries();
@@ -59,7 +59,7 @@ export class CheckoutComponent implements OnInit {
       ?.valueChanges.subscribe((data) => console.log(data));
   }
 
-  private listCheckoutDetails(): void {
+  private populateCheckoutDetails(): void {
     this.cartService.totalPrice.subscribe((data) => (this.totalPrice = data));
 
     this.cartService.totalQuantity.subscribe(

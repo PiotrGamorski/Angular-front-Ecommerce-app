@@ -9,6 +9,7 @@ import { Luv2ShopValidators } from '../validators/luv2-shop-validators';
 export class CheckoutForms {
   constructor(private formBuilder: FormBuilder) {}
 
+  //   --------------- CUSTOMER FORMGROUP ---------------
   customer: FormGroup = this.formBuilder.group({
     firstName: new FormControl('', [
       Validators.required,
@@ -29,22 +30,51 @@ export class CheckoutForms {
   get firstName() {
     return this.customer.get('firstName');
   }
-
   get lastName() {
     return this.customer.get('lastName');
   }
-
   get email() {
     return this.customer.get('email');
   }
+  //   --------------- END OFCUSTOMER FORMGROUP ---------------
 
+  //   --------------- SHIPPING ADDRESS FORMGROUP ---------------
   shippingAddress: FormGroup = this.formBuilder.group({
-    street: [''],
-    city: [''],
-    state: [''],
-    country: [''],
-    zipCode: [''],
+    street: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2),
+      Luv2ShopValidators.notOnlyWhitespace,
+    ]),
+    city: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2),
+      Luv2ShopValidators.notOnlyWhitespace,
+    ]),
+    state: new FormControl('', [Validators.required]),
+    country: new FormControl('', [Validators.required]),
+    zipCode: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2),
+      Luv2ShopValidators.notOnlyWhitespace,
+    ]),
   });
+
+  get shippingAddressStreet() {
+    return this.shippingAddress.get('street');
+  }
+  get shippingAddressCity() {
+    return this.shippingAddress.get('city');
+  }
+  get shippingAddressState() {
+    return this.shippingAddress.get('state');
+  }
+  get shippingAddressCountry() {
+    return this.shippingAddress.get('country');
+  }
+  get shippingAddressZipCode() {
+    return this.shippingAddress.get('zipCode');
+  }
+  //   --------------- END OF SHIPPING ADDRESS FORMGROUP ---------------
 
   billingAddress: FormGroup = this.formBuilder.group({
     street: [''],

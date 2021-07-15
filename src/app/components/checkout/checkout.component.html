@@ -107,6 +107,17 @@
                 <select formControlName="country" (change)="getStatesWhenCountrySelected('shippingAddress')">
                   <option *ngFor="let tempCountry of countries" [ngValue]="tempCountry">{{tempCountry.name}}</option>
                 </select>
+
+                <!-- Country Validation -->
+                <div *ngIf="forms.shippingAddressCountry?.invalid && (forms.shippingAddressCountry?.touched || forms.shippingAddressCountry?.dirty)" class="alert alert-danger">
+
+                  <div *ngIf="forms.shippingAddressCountry?.errors?.required">
+                    Country is required
+                  </div>
+
+                </div>
+                <!-- End of Country Validation -->
+
               </div>
             </div>
           </div>
@@ -117,6 +128,21 @@
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="street" type="text" />
+
+                <!-- Street Validation -->
+                <div *ngIf="forms.shippingAddressStreet?.invalid && (forms.shippingAddressStreet?.touched || forms.shippingAddressStreet?.dirty)" class="alert alert-danger">
+
+                  <div *ngIf="forms.shippingAddressStreet?.errors?.notOnlyWhitespace">
+                    Please, enter valid data
+                  </div>
+
+                  <div *ngIf="forms.shippingAddressStreet?.errors?.required">
+                    Street is required
+                  </div>
+
+                </div>
+                <!-- End of Street Validation -->
+
               </div>
             </div>
           </div>
@@ -127,6 +153,21 @@
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="city" type="text" />
+
+                <!-- City Validation -->
+                <div *ngIf="forms.shippingAddressCity?.invalid && (forms.shippingAddressCity?.touched || forms.shippingAddressCity?.dirty)" class="alert alert-danger">
+
+                  <div *ngIf="forms.shippingAddressCity?.errors?.notOnlyWhitespace">
+                    Please, enter valid data
+                  </div>
+
+                  <div *ngIf="forms.shippingAddressCity?.errors?.required">
+                    City is required
+                  </div>
+
+                </div>
+                <!-- End of City Validation -->
+
               </div>
             </div>
           </div>
@@ -143,6 +184,17 @@
                 <select *ngIf="!selectAllStates" formControlName="state">
                   <option *ngFor="let tempState of shippingAddressStates" [ngValue]="tempState">{{tempState.name}}</option>
                 </select>
+
+                <!-- State Validation -->
+                <div *ngIf="forms.shippingAddressState?.invalid && forms.shippingAddressState?.touched" class="alert alert-danger">
+
+                  <div *ngIf="forms.shippingAddressCity?.errors?.required">
+                    State is required
+                  </div>
+
+                </div>
+                <!-- End of State Validation -->
+                
               </div>
             </div>
           </div>
@@ -154,6 +206,21 @@
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="zipCode" type="text" />
+
+                <!-- ZipCode Validation -->
+                <div *ngIf="forms.shippingAddressZipCode?.invalid && (forms.shippingAddressZipCode?.touched || forms.shippingAddressZipCode?.dirty)" class="alert alert-danger">
+
+                  <div *ngIf="forms.shippingAddressZipCode?.errors?.notOnlyWhitespace">
+                    Please, enter valid data
+                  </div>
+
+                  <div *ngIf="forms.shippingAddressZipCode?.errors?.required">
+                    Zip Code is required
+                  </div>
+
+                </div>
+                <!-- ZipCode of City Validation -->
+                
               </div>
             </div>
           </div>

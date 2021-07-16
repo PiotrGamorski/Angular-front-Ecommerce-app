@@ -140,6 +140,10 @@
                     Street is required
                   </div>
 
+                  <div *ngIf="forms.shippingAddress?.errors?.minlength">
+                    Street must be at least 2 characters long
+                  </div>                  
+
                 </div>
                 <!-- End of Street Validation -->
 
@@ -185,15 +189,15 @@
                   <option *ngFor="let tempState of shippingAddressStates" [ngValue]="tempState">{{tempState.name}}</option>
                 </select>
 
-                <!-- State Validation -->
+                <!-- Shipping Address State Validation -->
                 <div *ngIf="forms.shippingAddressState?.invalid && forms.shippingAddressState?.touched" class="alert alert-danger">
 
-                  <div *ngIf="forms.shippingAddressCity?.errors?.required">
+                  <div *ngIf="forms.shippingAddressState?.errors?.required">
                     State is required
                   </div>
 
                 </div>
-                <!-- End of State Validation -->
+                <!-- End of Shipping Address State Validation -->
                 
               </div>
             </div>
@@ -253,6 +257,17 @@
                 <select formControlName="country" (change)="getStatesWhenCountrySelected('billingAddress')">
                   <option *ngFor="let tempCountry of countries" [ngValue]="tempCountry">{{tempCountry.name}}</option>
                 </select>
+
+                <!-- Country Validation -->
+                <div *ngIf="forms.billingAddressCountry?.invalid && (forms.billingAddressCountry?.touched || forms.billingAddressCountry?.dirty)" class="alert alert-danger">
+
+                  <div *ngIf="forms.billingAddressCountry?.errors?.required">
+                    Country is required
+                  </div>
+
+                </div>
+                <!-- End of Country Validation -->
+
               </div>
             </div>
           </div>
@@ -264,6 +279,25 @@
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="street" type="text" />
+
+                <!-- Street Validation -->
+                <div *ngIf="forms.billingAddressStreet?.invalid && (forms.billingAddressStreet?.touched || forms.billingAddressStreet?.dirty)" class="alert alert-danger">
+
+                  <div *ngIf="forms.billingAddressStreet?.errors?.notOnlyWhitespace">
+                    Please, enter valid data
+                  </div>
+
+                  <div *ngIf="forms.billingAddressStreet?.errors?.required">
+                    Street is required
+                  </div>
+
+                  <div *ngIf="forms.billingAddressStreet?.errors?.minlength">
+                    Street must be at least 2 characters long
+                  </div>
+
+                </div>
+                <!-- End of Street Validation -->
+
               </div>
             </div>
           </div>
@@ -275,6 +309,21 @@
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="city" type="text" />
+
+                <!-- City Validation -->
+                <div *ngIf="forms.billingAddressCity?.invalid && (forms.billingAddressCity?.touched || forms.billingAddressCity?.dirty)" class="alert alert-danger">
+
+                  <div *ngIf="forms.billingAddressCity?.errors?.notOnlyWhitespace">
+                    Please, enter valid data
+                  </div>
+
+                  <div *ngIf="forms.billingAddressCity?.errors?.required || forms.billingAddressCity?.errors?.minlength">
+                    City is required
+                  </div>
+
+                </div>
+                <!-- End of City Validation -->
+
               </div>
             </div>
           </div>
@@ -290,7 +339,18 @@
                 </select>
                 <select *ngIf="!selectAllStates" formControlName="state">
                   <option *ngFor="let tempState of billingAddressStates" [ngValue]="tempState">{{tempState.name}}</option>
-                </select>    
+                </select>
+                
+                <!-- Billing Address State Validation -->
+                <div *ngIf="forms.billingAddressState?.invalid && forms.billingAddressState?.touched" class="alert alert-danger">
+
+                  <div *ngIf="forms.billingAddressState?.errors?.required">
+                    State is required
+                  </div>
+
+                </div>
+                <!-- End of Billing State State Validation -->
+
               </div>
             </div>
           </div>
@@ -302,6 +362,25 @@
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="zipCode" type="text" />
+
+                <!-- ZipCode Validation -->
+                <div *ngIf="forms.billingAddressZipCode?.invalid && (forms.billingAddressZipCode?.touched || forms.billingAddressZipCode?.dirty)" class="alert alert-danger">
+
+                  <div *ngIf="forms.billingAddressZipCode?.errors?.notOnlyWhitespace">
+                    Please, enter valid data
+                  </div>
+
+                  <div *ngIf="forms.billingAddressZipCode?.errors?.required">
+                    Zip Code is required
+                  </div>
+
+                  <div *ngIf="forms.billingAddressZipCode?.errors?.minlength">
+                    ZipCode must be at least 2 characters long
+                  </div>
+
+                </div>
+                <!-- End of ZipCode Validation -->
+
               </div>
             </div>
           </div>

@@ -76,13 +76,44 @@ export class CheckoutForms {
   }
   //   --------------- END OF SHIPPING ADDRESS FORMGROUP ---------------
 
+  //   --------------- BILLING ADDRESS FORMGROUP ---------------
   billingAddress: FormGroup = this.formBuilder.group({
-    street: [''],
-    city: [''],
-    state: [''],
-    country: [''],
-    zipCode: [''],
+    street: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2),
+      Luv2ShopValidators.notOnlyWhitespace,
+    ]),
+    city: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2),
+      Luv2ShopValidators.notOnlyWhitespace,
+    ]),
+    state: new FormControl('', [Validators.required]),
+    country: new FormControl('', [Validators.required]),
+    zipCode: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2),
+      Luv2ShopValidators.notOnlyWhitespace,
+    ]),
   });
+
+  get billingAddressStreet() {
+    return this.billingAddress.get('street');
+  }
+  get billingAddressCity() {
+    return this.billingAddress.get('city');
+  }
+  get billingAddressState() {
+    return this.billingAddress.get('state');
+  }
+  get billingAddressCountry() {
+    return this.billingAddress.get('country');
+  }
+  get billingAddressZipCode() {
+    return this.billingAddress.get('zipCode');
+  }
+
+  //   --------------- BILLING ADDRESS FORMGROUP ---------------
 
   creditCard: FormGroup = this.formBuilder.group({
     cardType: [''],

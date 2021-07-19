@@ -402,6 +402,17 @@
                   <option>Visa</option>
                   <option>Mastercard</option>
                 </select>
+
+                  <!-- Card Type Validation -->
+                  <div *ngIf="forms.cardType?.invalid && (forms.cardType?.touched || forms.cardType?.dirty)" class="alert alert-danger">
+
+                    <div *ngIf="forms.cardType?.errors?.required">
+                      Card type is required
+                    </div>
+
+                  </div>
+                  <!-- End of Card Type Validation -->
+
               </div>
             </div>
           </div>
@@ -413,6 +424,25 @@
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="nameOnCard" type="text" />
+
+                <!-- Name in Card Validation -->
+                <div *ngIf="forms.nameOnCard?.invalid && (forms.nameOnCard?.touched || forms.nameOnCard?.dirty)" class="alert alert-danger">
+
+                  <div *ngIf="forms.nameOnCard?.errors?.required">
+                    Name in card is required
+                  </div>
+
+                  <div *ngIf="forms.nameOnCard?.errors?.minlength">
+                    Name in card must be at least 2 characters long
+                  </div>
+
+                  <div *ngIf="forms.nameOnCard?.errors?.notOnlyWhitespace">
+                    Please, enter valid data
+                  </div>
+
+                </div>
+                <!-- End of Name in Card Validation -->
+
               </div>
             </div>
           </div>
@@ -424,6 +454,21 @@
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="cardNumber" type="text" />
+
+                <!-- Card Number Validation -->
+                <div *ngIf="forms.cardNumber?.invalid && (forms.cardNumber?.touched || forms.cardNumber?.dirty)" class="alert alert-danger">
+
+                  <div *ngIf="forms.cardNumber?.errors?.required">
+                    Card number is required
+                  </div>
+
+                  <div *ngIf="forms.cardNumber?.errors?.pattern">
+                    Please, enter valid data
+                  </div>
+
+                </div>
+                <!-- End of Card Number Validation -->
+
               </div>
             </div>
           </div>
@@ -435,6 +480,21 @@
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="securityCode" type="text" />
+
+                <!-- Security Code Validation -->
+                <div *ngIf="forms.securityCode?.invalid && (forms.securityCode?.touched || forms.securityCode?.dirty)" class="alert alert-danger">
+
+                  <div *ngIf="forms.securityCode?.errors?.required">
+                    Security code is required
+                  </div>
+
+                  <div *ngIf="forms.securityCode?.errors?.pattern">
+                    Please, enter valid data
+                  </div>
+
+                </div>
+                <!-- End of Security Code Validation -->
+
               </div>
             </div>
           </div>

@@ -116,11 +116,35 @@ export class CheckoutForms {
   //   --------------- BILLING ADDRESS FORMGROUP ---------------
 
   creditCard: FormGroup = this.formBuilder.group({
-    cardType: [''],
-    nameOnCard: [''],
-    cardNumber: [''],
-    securityCode: [''],
+    cardType: new FormControl('', [Validators.required]),
+    nameOnCard: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2),
+      Luv2ShopValidators.notOnlyWhitespace,
+    ]),
+    cardNumber: new FormControl('', [
+      Validators.required,
+      Validators.pattern('[0-9]{16}'),
+    ]),
+    securityCode: new FormControl('', [
+      Validators.required,
+      Validators.pattern('[0-9]{3}'),
+    ]),
     expirationMonth: [''],
     expirationYear: [''],
   });
+
+  get cardType() {
+    return this.creditCard.get('cardType');
+  }
+  get nameOnCard() {
+    return this.creditCard.get('nameOnCard');
+  }
+  get cardNumber() {
+    return this.creditCard.get('cardNumber');
+  }
+  get securityCode() {
+    return this.creditCard.get('securityCode');
+  }
+  //   --------------- END OF BILLING ADDRESS FORMGROUP ---------------
 } // END OF CLASS

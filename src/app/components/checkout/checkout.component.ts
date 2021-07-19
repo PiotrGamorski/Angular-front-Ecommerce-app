@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Country } from 'src/app/common/country';
 import { State } from 'src/app/common/state';
+import { CheckoutForms } from 'src/app/forms/checkout-forms';
 import { CartService } from 'src/app/services/cart.service';
 import { Luv2ShopFormService } from 'src/app/services/luv2-shop-form.service';
 
@@ -12,6 +13,7 @@ import { Luv2ShopFormService } from 'src/app/services/luv2-shop-form.service';
 })
 export class CheckoutComponent implements OnInit {
   checkoutFormGroup: FormGroup = new FormGroup({});
+  forms: CheckoutForms = new CheckoutForms(this.formBuilder);
 
   totalPrice: number = 0;
   totalQuantity: number = 0;
@@ -33,50 +35,23 @@ export class CheckoutComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.listCheckoutDetails();
+    this.generateCheckoutFormGroup();
+    this.populateCheckoutDetails();
     this.populateCreditCardMonths();
     this.populateCreditCardYears();
     this.hanadleListCountries();
     this.handleListOfAllStates();
+  }
 
-    const customer: FormGroup = this.formBuilder.group({
-      firstName: [''],
-      lastName: [''],
-      email: [''],
-    });
+  // --------------- PRIVATE METHODS ---------------
 
-    const shippingAddress: FormGroup = this.formBuilder.group({
-      street: [''],
-      city: [''],
-      state: [''],
-      country: [''],
-      zipCode: [''],
-    });
-
-    const billingAddress: FormGroup = this.formBuilder.group({
-      street: [''],
-      city: [''],
-      state: [''],
-      country: [''],
-      zipCode: [''],
-    });
-
-    const creditCard: FormGroup = this.formBuilder.group({
-      cardType: [''],
-      nameOnCard: [''],
-      cardNumber: [''],
-      securityCode: [''],
-      expirationMonth: [''],
-      expirationYear: [''],
-    });
-
+  private generateCheckoutFormGroup() {
     this.checkoutFormGroup = this.formBuilder.group({
-      customer: customer,
-      shippingAddress: shippingAddress,
-      billingAddress: billingAddress,
-      creditCard: creditCard,
+      customer: this.forms.customer,
+      shippingAddress: this.forms.shippingAddress,
+      billingAddress: this.forms.billingAddress,
+      creditCard: this.forms.creditCard,
     });
-    // the parent form group is 'checkoutFormGroup' and 'customer' is nested form group
 
     // console logs every value change
     this.checkoutFormGroup
@@ -84,9 +59,7 @@ export class CheckoutComponent implements OnInit {
       ?.valueChanges.subscribe((data) => console.log(data));
   }
 
-  // --------------- PRIVATE METHODS ---------------
-
-  private listCheckoutDetails(): void {
+  private populateCheckoutDetails(): void {
     this.cartService.totalPrice.subscribe((data) => (this.totalPrice = data));
 
     this.cartService.totalQuantity.subscribe(
@@ -127,12 +100,16 @@ export class CheckoutComponent implements OnInit {
       this.states = data;
     });
   }
+  // --------------- END OF PRIVATE METHODS ---------------
 
   // --------------- PUBLIC METHODS ---------------
 
   onSubmit() {
     console.log('Handling the submit button');
-    console.log(this.checkoutFormGroup.get('customer')?.value);
+
+    if (this.checkoutFormGroup.invalid) {
+      this.checkoutFormGroup.markAllAsTouched();
+    }
   }
 
   copyShippingAddressToBilingAddress(theEvent: Event): void {
@@ -190,6 +167,7 @@ export class CheckoutComponent implements OnInit {
         console.log(this.selectAllStates);
       });
   }
+  // --------------- END OF PUBLIC METHODS ---------------
 
   // END OF CLASS
 }

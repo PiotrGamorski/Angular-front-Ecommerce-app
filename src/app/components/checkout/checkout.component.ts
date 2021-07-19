@@ -65,8 +65,6 @@ export class CheckoutComponent implements OnInit {
     this.cartService.totalQuantity.subscribe(
       (data) => (this.totalQuantity = data)
     );
-
-    this.cartService.computeCartTotals();
   }
 
   private populateCreditCardMonths(): void {

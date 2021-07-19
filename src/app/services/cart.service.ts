@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { CartItem } from '../common/cart-item';
 import { Product } from '../common/product';
 
@@ -9,8 +9,8 @@ import { Product } from '../common/product';
 export class CartService {
   cartItems: CartItem[] = [];
 
-  totalPrice: Subject<number> = new Subject<number>();
-  totalQuantity: Subject<number> = new Subject<number>();
+  totalPrice: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  totalQuantity: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   constructor() {}
 
@@ -50,6 +50,7 @@ export class CartService {
       totalQuantityValue = totalQuantityValue + currentCartItem.quantity;
     }
 
+    // publish the new values ... all the subscribers will recieve the new data
     this.totalPrice.next(totalPriceValue);
     this.totalQuantity.next(totalQuantityValue);
 
